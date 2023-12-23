@@ -16,12 +16,12 @@ The implementation does not support denormalized floating point numbers, NAN or 
 
 ## Class representing a number
 We use the following structure to represent floating-point numbers:
-```
+```c++
 class CustomFloat{
-        uint32_t _mantissa;
-        int32_t _exponent;
-        bool _positive { true };
-}
+    uint32_t _mantissa;
+    int32_t _exponent;
+    bool _positive { true };
+};
 ```
 The exponent is with respect to base 2. The mantissa must be
 - either 0 which represents the number 0 irrespective of the other parameters
@@ -39,6 +39,9 @@ For addition we have to check for different cases:
 	   + if both mantissa are equal return 0
 	   + subtract the smaller mantissa from the bigger mantissa and switch sign if necessary.
    - if the exponents are not equal right-shift the second mantissa by the difference in exponents. Then subtract this number from the first mantissa. Finally normalize the number again by left-shifting and reducing the exponent if necessary.
+
+### Subtraction
+Just add the negative number (flip the `_positive` property).
    
 ### Multiplication
  - if one number is 0 return 0
